@@ -11,7 +11,7 @@ const calculateWinner = (matrix) => {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i]
     if (matrix[a] && matrix[a] === matrix[b] && matrix[a] === matrix[c]) {
-      return matrix[a]
+      return matrix[a] // Return 'X' or 'O' as the winner here matrix[a] is either 'X' or 'O'
     }
   }
   return null

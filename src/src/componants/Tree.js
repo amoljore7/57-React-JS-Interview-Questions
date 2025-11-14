@@ -9,8 +9,8 @@ function buildTree(paths) {
     let currentLevel = root;
     let currentPath = "";
 
-    for (let i = 0; i < parts.length; i++) {
-      const part = parts[i]; // Get the current part of the path
+    for (let index = 0; index < parts.length; index++) {
+      const part = parts[index]; // Get the current part of the path
       currentPath = currentPath ? `${currentPath}/${part}` : part;
 
       let existing = currentLevel.find(item => item.label === part); // Check if the part already exists at the current level
@@ -19,8 +19,8 @@ function buildTree(paths) {
         existing = {
           label: part,
           path: currentPath,
-          type: i === parts.length - 1 ? "file" : "folder", // Determine if it's a file or folder 
-          ...(i === parts.length - 1 ? {} : { children: [] }) // Only add children array for folders
+          type: index === parts.length - 1 ? "file" : "folder", // Determine if it's a file or folder 
+          ...(index === parts.length - 1 ? {} : { children: [] }) // Only add children array for folders
         };
         currentLevel.push(existing); // Add new part to the current level
       }
