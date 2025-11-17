@@ -109,15 +109,13 @@ const Table = ({
         </thead>
         <tbody>
           {data?.map((row, rowIndex) => (
-              <div key={rowIndex}>
-                <tr style={style}>
+                <tr key={rowIndex} style={style}>
                   {columns.map((column, index) => (
                     <td key={index}>
                       {column.renderColumn ? column.renderColumn(row) : row[column.field]}
                     </td>
                   ))}
                 </tr>
-              </div>
             ))}
         </tbody>
       </table>

@@ -4,7 +4,7 @@ function buildTree(paths) {
   const root = [];
 
   for (const path of paths) { // Iterate through each path in the input array 
-    const parts = path.split('/'); //
+    const parts = path.split('/'); // for 1st path ex "src/components/Button.js" → parts = ["src","components","Button.js"]
 
     let currentLevel = root;
     let currentPath = "";

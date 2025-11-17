@@ -19,34 +19,34 @@ const debouncedFn = myDebounce(getData, 1000);
 const throttleFn = myThrottle(getData, 1000);
 
 const ParentComponent = () => {
-  // const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-  // const handleClick = useCallback(() => {
-  //   console.log('>>>useCallback clicked');
-  //   setCount(count => count + 1);
-  // }, []);
+  const handleClick = useCallback(() => {
+    console.log('>>>useCallback clicked');
+    setCount(count => count + 1);
+  }, []);
 
-  // const fnRef = useRef(handleClick);
+  const fnRef = useRef(handleClick);
 
-  // useEffect(() => {
-  //   console.log("Function changed:", fnRef.current !== handleClick);
-  //   fnRef.current = handleClick;
-  // });
+  useEffect(() => {
+    console.log("Function changed:", fnRef.current !== handleClick);
+    fnRef.current = handleClick;
+  });
 
 
-  // // Imagine this calculation is heavy.
-  // const expensiveValue = useMemo(() => {
-  //   console.log('>>>Expensive calculation running...');
-  //   let total = 0;
-  //   for (let i = 0; i < 100000000; i++) {
-  //     total += i;
-  //   }
-  //   return total;
-  // }, []); // it will only re-calculate once on mount
+  // Imagine this calculation is heavy.
+  const expensiveValue = useMemo(() => {
+    console.log('>>>Expensive calculation running...');
+    let total = 0;
+    for (let i = 0; i < 100000000; i++) {
+      total += i;
+    }
+    return total;
+  }, []); // it will only re-calculate once on mount
 
   return (
     <>
-      {/* <WebSocket />
+      <WebSocket />
       <br />
       <button onClick={() => setCount(count + 1)}>Parent Count: {count}</button>
       <br />
@@ -64,7 +64,7 @@ const ParentComponent = () => {
         </button>
         <p>Open console to see logs → countClick</p>
       </div>
-      <br /> */}
+      <br />
     </>
   );
 };
@@ -112,7 +112,7 @@ function count(){
   console.log('>>>Length of this is:', this?.length);
 }
 const data = [count, 'A', 101]
-data[0]('Amoll');// it will print 3
+data[0]('Amol');// it will print 3
 data[0](); // it will print 3
 const fn = data[0]; // store reference
 fn(); // plain function call // it will print 20
@@ -134,8 +134,9 @@ fn(); // plain function call // it will print 20
 
 //Predict the output of the following code:
 
-for(var i=0;i<5;i++){
-  setTimeout(function(){
+for(var i=0; i < 5; i++) {
+  // eslint-disable-next-line no-loop-func
+  setTimeout(()=> {
     console.log(i);
   },i*1000);
 }
@@ -149,6 +150,21 @@ for(var i=0;i<5;i++){
 
 //Explanation:
 //The loop completes before any of the setTimeout callbacks execute. By the time the callbacks run, the value of i is 5. Since var is function-scoped, all callbacks reference the same i variable, which has the final value of 5 after the loop ends.
+
+//setTimeout(callback, delay, param1, param2, ...) The additional parameters (param1, param2, etc.) are passed to the callback function when it is executed.
+for (var i = 1; i < 5; i++) {
+  setTimeout((val) => {
+    console.log(val)
+  }, 1000, i); // <-- 3rd argument passed here
+}
+//Output:
+//1
+//2
+//3
+//4 (after 1 second)
+
+//Explanation:
+//In this version, we pass i as a third argument to setTimeout. This creates a new parameter val for the arrow function, capturing the current value of i at each iteration. Thus, when the callbacks execute after 1 second, they log the correct values 1 through 4.
 
 //To fix this and log 0, 1, 2, 3, 4 as intended, we can use let instead of var:
 
@@ -170,7 +186,7 @@ for(let i=0;i<5;i++){
 
 //if you want to use var, you can create new function and pass i variable as parameter, so it creates new scope for each iteration:
 
-for(var i=0;i<5;i++){
+for(var i =0; i < 5; i++){
   logValue(i);
 }
 function logValue(i){
