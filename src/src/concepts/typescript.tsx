@@ -142,8 +142,11 @@ class Employee extends Person {
 }
 
 const emp = new Employee("Amol", 27, "Pune", "Developer");
-emp.greet(); // ✅ works
-// emp.name ❌ Error: 'name' is private
+emp.greet(); // ✅ works //console logs: Hello, my name is Amol
+console.log(emp.age);  // ✅ works
+console.log(emp.role); // ✅ works
+// console.log(emp.city); ❌ Error: 'city' is protected
+// console.log(emp.name); ❌ Error: 'name' is private
 
 // 8️⃣ Type Aliases
 
