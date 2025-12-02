@@ -3,6 +3,8 @@ import TicTacToe from './TicTacToe'
 import DataTable from './Table'
 import Tree from './Tree'
 import TrafficLight from './TrafficLight'
+import BoxSequenceGame from './BoxSequenceGame'
+import CurrentCountAndPreviousCount from './CurrentCountAndPreviousCount'
 
 const Index = () => {
 
@@ -15,6 +17,10 @@ const Index = () => {
       <DataTable />
       <br />
       <TrafficLight />
+      <br />
+      <BoxSequenceGame />
+      <br />
+      <CurrentCountAndPreviousCount />
       <br />
     </>
   )
