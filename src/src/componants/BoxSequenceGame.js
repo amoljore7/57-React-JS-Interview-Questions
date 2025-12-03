@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const styles = {
   container: { display: "flex", flexDirection: "column", alignItems: "center" },
@@ -28,78 +28,59 @@ const styles = {
   },
 };
 
-const BLINK_TIME = 1000;
-const TOTAL_BOXES = 9;
-
 export default function SequenceBoxGame() {
   const [sequence, setSequence] = useState([]); // order of user clicked boxes
   const [currentIndex, setCurrentIndex] = useState(null); // index being highlighted during play
-  const [isPlaying, setIsPlaying] = useState(false);
-  const timerRef = useRef(null);
 
   const handleBoxClick = (boxIndex) => {
-    if (isPlaying) return;                      // avoid clicks while playing
     setSequence((prev) => [...prev, boxIndex]); // store clicked order
   };
 
   const play = () => {
     if (sequence.length === 0) return; // no clicks stored
-    setIsPlaying(true);
     setCurrentIndex(0);
   };
 
-  const stop = () => {
-    setIsPlaying(false);
-    setCurrentIndex(null);
-  };
 
   const reset = () => {
-    stop();
     setSequence([]);
+    setCurrentIndex(null)
   };
 
   useEffect(() => {
-    if (!isPlaying || currentIndex === null) return;
+    if (currentIndex === null) return;
 
-    timerRef.current = setTimeout(() => {
+    let timer = setTimeout(() => {
       // if last item reached, stop
       if (currentIndex >= sequence.length - 1) {
-        setIsPlaying(false);
         setCurrentIndex(null);
+        // setCurrentIndex(null); // if want to play in a loop
       } else {
         setCurrentIndex((prev) => prev + 1);
       }
-    }, BLINK_TIME);
+    }, 500);
 
-    return () => clearTimeout(timerRef.current);
-  }, [isPlaying, currentIndex, sequence]);
+    return () => clearTimeout(timer);
+  }, [currentIndex, sequence]);
 
   return (
     <div style={styles.container}>
       <div style={styles.controls}>
-        <button onClick={play} disabled={isPlaying || sequence.length === 0}>
+        <button onClick={play} disabled={sequence.length === 0}>
           Play
-        </button>
-        <button onClick={stop} disabled={!isPlaying}>
-          Stop
         </button>
         <button onClick={reset}>Reset</button>
       </div>
 
       <div style={styles.grid}>
-        {[...Array(TOTAL_BOXES)].map((_, i) => {
-          const isBlinking =
-            isPlaying &&
-            currentIndex !== null &&
-            sequence[currentIndex] === i;
-
+        {[...Array(9)].map((_, index) => {
           return (
             <div
-              key={i}
-              style={isBlinking ? { ...styles.box, ...styles.activeBox } : styles.box}
-              onClick={() => handleBoxClick(i)}
+              key={index}
+              style={sequence[currentIndex] === index ? { ...styles.box, ...styles.activeBox } : styles.box}
+              onClick={() => handleBoxClick(index)}
             >
-              {i + 1}
+              {index + 1}
             </div>
           );
         })}

@@ -4,8 +4,8 @@
 // 	•	apply() — calls a function with a given this value and arguments passed as an array.
 //    bind() is similar but returns a new function instead of calling it immediately.
 
-function greet(greeting = "Hello", punctuation = "!") {
-  console.log(`${greeting}, ${this.name} ${punctuation}`);
+function greet(arg_1 = "Hello", arg_2 = "!") {
+  console.log(`${arg_1}, ${this.name} ${arg_2}`);
 }
 const myThisUser = { name: "Amol" };
 const myThisUser1 = { name: "Rahul" };
@@ -169,7 +169,7 @@ function updateWallet(msg) {
 
 
 // “I used a Map because it maintains insertion order in JavaScript.
-// Every time I access a key, I remove and reinsert it at the end to mark it as recently used.
+// Every time I access a key, I remove and re-insert it at the end to mark it as recently used.
 // When I exceed the limit, I remove the first inserted key, which is the least recently used one.”
 
 class LRUCache {
