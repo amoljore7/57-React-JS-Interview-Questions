@@ -1,5 +1,6 @@
 
-// In JavaScript, call and apply are used to invoke a function immediately and explicitly set the value of this inside that function.
+//call and apply are used to invoke a function immediately with a specified this context.
+//The only difference is how arguments are passed.
 // 	•	call() — calls a function with a given this value and arguments passed individually.
 // 	•	apply() — calls a function with a given this value and arguments passed as an array.
 //    bind() is similar but returns a new function instead of calling it immediately.
@@ -13,8 +14,8 @@ const myThisUser1 = { name: "Rahul" };
 greet.call(myThisUser, "Hello", "!"); // Hello, Amol !
 greet.apply(myThisUser1, ["Hello", "!"]); // Hello, Rahul !
 
-const boundGreet = greet.bind(myThisUser, "Hello");
-boundGreet("!"); // Hello, Amol !
+const boundGreet = greet.bind(myThisUser, "Hello", "!");
+boundGreet(); // Hello, Amol !
 
 
 
